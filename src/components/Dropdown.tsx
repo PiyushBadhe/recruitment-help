@@ -4,12 +4,12 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const Dropdown: React.FC<DropdownProps> = ({ options, selectedValue, onChange, label }) => {
     return (
         <FormControl size="small" sx={{ minWidth: 300 }}>
-            <InputLabel id="platform-select-label">{label || "Compare With"}</InputLabel>
+            <InputLabel id="platform-select-label">{label}</InputLabel>
             <Select
                 labelId="platform-select-label"
                 id="platform-select"
                 value={selectedValue}
-                label={label || "Compare With"}
+                label={label}
                 onChange={(e) => onChange(e.target.value)}
             >
                 {options.map((option) => (

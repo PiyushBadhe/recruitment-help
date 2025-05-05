@@ -4,7 +4,7 @@ export const emailOptions = [
         value: "followup_test",
         message: "Subject: Follow-up on [position name] Submitted Assignment\n\nDear [Recruiter's Name],\n\nI hope you're doing well.\n\nI wanted to follow up regarding the [test/assignment name] I submitted on [submission date] as part of the [position name] application process. I am keen to know if there are any updates or feedback you could share.\n\nPlease let me know if you need anything further from my end. I remain enthusiastic about the opportunity and look forward to hearing from you.\n\nThank you for your time and consideration.\n\nBest regards,\nPiyush Badhe\n+91 8806613528\nhttps://www.linkedin.com/in/piyush-badhe-dot-stack"
     },
-    { label: "Follow up mail - interview", value: "followup_interview", message: "Follow up after an interview." },
+    { label: "Follow up mail - interview", value: "followup_interview", message: "Follow up after an interview......." },
     { label: "Follow up mail - other", value: "followup_other", message: "Follow up for other purposes." },
 ];
 
@@ -17,10 +17,10 @@ export const linkedInOptions = [
 
 export const replacementKeywords = {
     connection_request: [
-        { label: "[position name]", value: "position_name" },
-        { label: "[Recruiter's Name]", value: "recruiter_name" },
-        { label: "[test/assignment name]", value: "assignment_name" },
-        { label: "[submission date]", value: "submission_date" },
+        { label: "[position name]", value: "[position name]" },
+        { label: "[Recruiter's Name]", value: "[Recruiter's Name]" },
+        { label: "[test/assignment name]", value: "[test/assignment name]" },
+        { label: "[submission date]", value: "[submission date]" },
     ],
     discuss_hr: [
         { label: "dfdfdfdfdfdf", value: "position_name" },
@@ -39,5 +39,23 @@ export const replacementKeywords = {
         { label: "[Recruiter's Name]", value: "recruiter_name" },
         { label: "[test/assignment name]", value: "assignment_name" },
         { label: "[submission date]", value: "submission_date" },
-    ]
+    ],
+    followup_test: [
+        { label: "[position name]", value: "[position name]" },
+        { label: "[Recruiter's Name]", value: "[Recruiter's Name]" },
+        { label: "[test/assignment name]", value: "[test/assignment name]" },
+        { label: "[submission date]", value: "[submission date]" },
+    ],
+    followup_interview: [
+        { label: "[position name]", value: "[position name]" },
+        { label: "[Recruiter's Name]", value: "[Recruiter's Name]" },
+        { label: "[test/assignment name]", value: "[test/assignment name]" },
+        { label: "[submission date]", value: "[submission date]" },
+    ],
+    followup_other: [
+        { label: "[position name]", value: "[position name]" },
+        { label: "[Recruiter's Name]", value: "[Recruiter's Name]" },
+        { label: "[test/assignment name]", value: "[test/assignment name]" },
+        { label: "[submission date]", value: "[submission date]" },
+    ],
 }
