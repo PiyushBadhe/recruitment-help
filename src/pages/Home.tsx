@@ -22,7 +22,7 @@ import React, {
 } from "react";
 
 import Dropdown from "../components/Dropdown";
-import { emailOptions, linkedInOptions, replacementKeywords } from "../data/dropdownOptions";
+import Data from "../data/dropdownOptions";
 import { enums } from "../types/enums";
 
 const HomePage: React.FC = () => {
@@ -34,18 +34,25 @@ const HomePage: React.FC = () => {
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const [messageOptions, setMessageOptions] = useState(emailOptions);
+    const [messageOptions, setMessageOptions] = useState(Data.dropDownListLinkedIn);
     const [selectedMessageType, setSelectedMessageType] = useState(messageOptions[0].value);
     const [previousSelectedMessageType, setPreviousSelectedMessageType] = useState<string | null>(null);
 
-    const [replacementOptions, setReplacementOptions] = useState(replacementKeywords.connection_request);
-    const [selectedReplacementKeyword, setSelectedReplacementKeyword] = useState(replacementOptions[0].value);
+    const initialReplacement =
+        Data.replacementKeywords.connection_request?.[0]?.value || "";
+
+    const [replacementOptions, setReplacementOptions] = useState(
+        Data.replacementKeywords.connection_request || []
+    );
+    const [selectedReplacementKeyword, setSelectedReplacementKeyword] = useState(initialReplacement);
 
     const [messageContext, setMessageContext] = useState(messageOptions[0].message);
 
+    const [isOtherOptions, setIsOtherOptions] = useState<boolean>(true);
+
     // Helpers
     const fetchMessageBody = useCallback((value: string): string => {
-        const allOptions = [...linkedInOptions, ...emailOptions];
+        const allOptions = [...Data.dropDownListLinkedIn, ...Data.dropDownListEmail, ...Data.dropDownListOthers];
         return allOptions.find(item => item.value === value)?.message || "";
     }, []);
 
@@ -78,6 +85,7 @@ const HomePage: React.FC = () => {
         const regex = new RegExp(escaped, "g");
         const updated = messageContext.replace(regex, searchText);
 
+        setSearchText("");
         setMessageContext(updated);
         updateLocalStorage(enums.LOCAL_CONTEXT_KEY, updated);
         setIsModified(true);
@@ -121,32 +129,57 @@ const HomePage: React.FC = () => {
         if (confirm) confirmDialogChange();
     };
 
-    const handlePlatformChange = (options: typeof emailOptions | typeof linkedInOptions) => {
+    const handlePlatformChange = (
+        options: typeof Data.dropDownListEmail | typeof Data.dropDownListLinkedIn | typeof Data.dropDownListOthers
+    ) => {
         setMessageOptions(options);
+
+        const isOthers = options === Data.dropDownListOthers;
+        setIsOtherOptions(!isOthers);
+
         const defaultType = options[0].value;
 
         setDialogType("messageBody");
 
         if (!isModified) {
             setSelectedMessageType(defaultType);
-            setReplacementOptions(replacementKeywords[defaultType as keyof typeof replacementKeywords]);
-        } else {
-            setPreviousSelectedMessageType(defaultType);
-            setOpenDialog(true);
+
+            if (isOthers) {
+                setReplacementOptions([]);
+                setSelectedReplacementKeyword("");
+            } else {
+                setReplacementOptions(Data.replacementKeywords[defaultType as keyof typeof Data.replacementKeywords]);
+                setSelectedReplacementKeyword(Data.replacementKeywords[defaultType as keyof typeof Data.replacementKeywords][0].value);
+            }
+
+            return;
         }
+
+        setPreviousSelectedMessageType(defaultType);
+        setOpenDialog(true);
     };
+
 
     const handleMessageTypeChange = (newType: string) => {
         setDialogType("messageBody");
 
-        if (!isModified) {
+        if (!isOtherOptions) {
             setSelectedMessageType(newType);
-            setReplacementOptions(replacementKeywords[newType as keyof typeof replacementKeywords]);
             return;
         }
+
+        if (!isModified) {
+            setSelectedMessageType(newType);
+            const keywords = Data.replacementKeywords[newType as keyof typeof Data.replacementKeywords];
+            setReplacementOptions(keywords);
+            setSelectedReplacementKeyword(keywords[0].value);
+            return;
+        }
+
         setPreviousSelectedMessageType(newType);
         setOpenDialog(true);
     };
+
 
     // Load saved context
     useEffect(() => {
@@ -183,13 +216,13 @@ const HomePage: React.FC = () => {
                 gap={2}
                 flexWrap="wrap"
             >
-                <IconButton onClick={() => handlePlatformChange(linkedInOptions)} color="primary">
+                <IconButton onClick={() => handlePlatformChange(Data.dropDownListLinkedIn)} color="primary">
                     <LinkedInIcon fontSize="large" />
                 </IconButton>
-                <IconButton onClick={() => handlePlatformChange(emailOptions)} color="error">
+                <IconButton onClick={() => handlePlatformChange(Data.dropDownListEmail)} color="error">
                     <EmailIcon fontSize="large" />
                 </IconButton>
-                <IconButton onClick={() => handlePlatformChange(linkedInOptions)}>
+                <IconButton onClick={() => handlePlatformChange(Data.dropDownListOthers)}>
                     <MiscControls fontSize="large" />
                 </IconButton>
             </Box>
@@ -210,36 +243,68 @@ const HomePage: React.FC = () => {
                     onChange={handleMessageTypeChange}
                 />
 
-                <Dropdown
-                    label="Replacement Words"
-                    options={replacementOptions}
-                    selectedValue={selectedReplacementKeyword}
-                    onChange={(val) => setSelectedReplacementKeyword(val)}
-                />
+                {isOtherOptions &&
+                    <>
+                        <Dropdown
+                            label="Replacement Words"
+                            options={replacementOptions}
+                            selectedValue={selectedReplacementKeyword}
+                            onChange={(val) => setSelectedReplacementKeyword(val)}
+                        />
 
-                <TextField
-                    size="small"
-                    placeholder="Replace with word..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    fullWidth
-                />
-                <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={handleReplace}
-                    fullWidth={true}
-                >
-                    Replace
-                </Button>
+                        <TextField
+                            size="small"
+                            placeholder="Replace with word..."
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            fullWidth
+                        />
+
+                        <Button
+                            variant="contained"
+                            color="inherit"
+                            onClick={handleReplace}
+                            fullWidth={true}
+                        >
+                            Replace
+                        </Button>
+                    </>
+                }
                 <Button
                     variant="contained"
                     color={copied ? "success" : "secondary"}
                     onClick={handleCopy}
-                    fullWidth={true}
+                    className={`${!isOtherOptions ? "w-28" : "w-full"}`}
                 >
                     {copied ? "Copied!" : "Copy"}
                 </Button>
+
+                {!isOtherOptions &&
+                    <>
+                        <Button
+                            variant="outlined"
+                            color="inherit"
+                            onClick={
+                                () => { window.open("https://drive.google.com/file/d/1dz3Lxcg3a6SA1hdP4CH-MgMpi6xY6mpA/view", "_blank", "noopener,noreferrer") }
+                            }
+                            sx={{ textTransform: "none" }}
+                        >
+                            <strong>Resume</strong>
+                        </Button>
+
+                        <Button
+                            variant="outlined"
+                            color="success"
+                            onClick={
+                                () => { window.open("https://drive.google.com/file/d/1Z8DvWMGOxGObcXMww31TDotBYkoT_O-D/view", "_blank", "noopener,noreferrer") }
+                            }
+                            sx={{ textTransform: "none" }}
+                        >
+                            <strong>Curriculum Vitae</strong>
+                        </Button>
+
+                    </>
+                }
             </Box>
 
             {/* TextArea */}
