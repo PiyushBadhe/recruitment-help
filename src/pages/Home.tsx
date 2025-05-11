@@ -285,7 +285,7 @@ const HomePage: React.FC = () => {
                             variant="outlined"
                             color="inherit"
                             onClick={
-                                () => { window.open("https://drive.google.com/file/d/1dz3Lxcg3a6SA1hdP4CH-MgMpi6xY6mpA/view", "_blank", "noopener,noreferrer") }
+                                () => { window.open(import.meta.env.VITE_RESUME_LINK!, "_blank", "noopener,noreferrer") }
                             }
                             sx={{ textTransform: "none" }}
                         >
@@ -296,7 +296,7 @@ const HomePage: React.FC = () => {
                             variant="outlined"
                             color="success"
                             onClick={
-                                () => { window.open("https://drive.google.com/file/d/1Z8DvWMGOxGObcXMww31TDotBYkoT_O-D/view", "_blank", "noopener,noreferrer") }
+                                () => { window.open(import.meta.env.VITE_CV_LINK!, "_blank", "noopener,noreferrer") }
                             }
                             sx={{ textTransform: "none" }}
                         >
