@@ -183,10 +183,9 @@ const HomePage: React.FC = () => {
 
     // Load saved context
     useEffect(() => {
-        const savedType = localStorage.getItem(enums.LOCAL_SELECTED_KEY);
         const savedContext = localStorage.getItem(enums.LOCAL_CONTEXT_KEY);
 
-        const typeToLoad = savedType || selectedMessageType;
+        const typeToLoad = selectedMessageType;
         const contextToLoad = savedContext || fetchMessageBody(typeToLoad);
 
         setSelectedMessageType(typeToLoad);
