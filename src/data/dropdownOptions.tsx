@@ -3,6 +3,26 @@ import { DropDownOptionsMap, ReplacementKeywordMap } from "../types/general";
 class Data {
     private emailOptions: DropDownOptionsMap = [
         {
+            label: "Career Mail - NodeJs",
+            value: "career_mail_nodeJs",
+            message: "Subject: Application for Node.js Developer Position\n\nDear HR Team,\n\nI hope you are doing well.\n\nI’m writing to express my interest in the Node.js Developer role at [Company Name]. I have over a year of experience building backend systems using Node.js and Express in TypeScript, supported by a full-stack foundation with PostgreSQL and React.js.\n\nDuring my time in the retail sector, I contributed to the development of scalable web applications, improving system performance and delivery efficiency. My responsibilities included end-to-end development, SDLC optimization, and rigorous testing to ensure quality and reliability.\n\nMore recently, I have dedicated myself to technical upskilling by building personal projects using TypeScript, PostgreSQL, and RESTful APIs, while following best practices in frontend testing with tools like Jest and React Testing Library.\n\nMy resume is attached for your review. I’d welcome the opportunity to further discuss how my skills and experience align with your team’s needs.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,\nPiyush Badhe\n📞 +91 8806613528\n📧 badhepiyush7@gmail.com\n🌐 LinkedIn: https://www.linkedin.com/in/piyush-badhe-dot-stack"
+        },
+        {
+            label: "Career Mail - Full Stack",
+            value: "career_mail_fullStack",
+            message: "Subject: Application for Full Stack Developer Position\n\nDear HR Team,\n\nI hope you are doing well.\n\nI’m writing to express my interest in the Full Stack Developer role at [Company Name]. I have over a year of experience building scalable full-stack web applications using Node.js and Express in TypeScript, React.js with Tailwind CSS, and PostgreSQL for backend data operations. At my previous role in the retail sector, I contributed to delivering robust and performant systems, and since then, I’ve continued honing my skills through personal projects—focusing on RESTful APIs, frontend architecture, and automated testing using Jest and React Testing Library.\n\nMy resume is attached for your review. I’d welcome the opportunity to discuss how my experience aligns with your team’s needs.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,\nPiyush Badhe\n📞 +91 8806613528\n📧 badhepiyush7@gmail.com\n🌐 LinkedIn: https://www.linkedin.com/in/piyush-badhe-dot-stack"
+        },
+        {
+            label: "Discuss Opportunity - NodeJs",
+            value: "discuss_opportunity_nodeJs",
+            message: "Subject: Application for Node.js Developer Position\n\nDear HR Team,\n\nI hope you are doing well.\n\nI’m writing to express my interest in the Node.js Developer role at [Company Name]. I found this exciting opportunity on \[Job Portal] and believe my skills make me a strong fit.\n\nI have over a year of experience building backend systems using Node.js and Express in TypeScript, supported by a full-stack foundation with PostgreSQL and React.js.\nDuring my time in the retail sector, I contributed to the development of scalable web applications, improving system performance and delivery efficiency. My responsibilities included end-to-end development, SDLC optimization, and rigorous testing to ensure quality and reliability.\n\nMore recently, I have dedicated myself to technical upskilling by building personal projects using TypeScript, PostgreSQL, and RESTful APIs, while following best practices in frontend testing with tools like Jest and React Testing Library.\n\nMy resume is attached for your review. I’d welcome the opportunity to further discuss how my skills and experience align with your team’s needs.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,\nPiyush Badhe\n📞 +91 8806613528\n📧 badhepiyush7@gmail.com\n🌐 LinkedIn: https://www.linkedin.com/in/piyush-badhe-dot-stack"
+        },
+        {
+            label: "Discuss Opportunity - Full Stack",
+            value: "discuss_opportunity_fullStack",
+            message: "Subject: Application for Full Stack Developer Position\n\nDear HR Team,\n\nI hope you are doing well.\n\nI’m writing to express my interest in the Full Stack Developer role at \[Company Name]. I found this exciting opportunity on \[Job Portal] and believe my skills make me a strong fit. I have over a year of experience building scalable full-stack web applications using Node.js and Express in TypeScript, React.js with Tailwind CSS, and PostgreSQL for backend data operations. At my previous role in the retail sector, I contributed to delivering robust and performant systems, and since then, I’ve continued honing my skills through personal projects—focusing on RESTful APIs, frontend architecture, and automated testing using Jest and React Testing Library.\n\nMy resume is attached for your review. I’d welcome the opportunity to discuss how my experience aligns with your team’s needs.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,\n\nPiyush Badhe\n📞 +91 8806613528\n📧 badhepiyush7@gmail.com\n🌐 LinkedIn: https://www.linkedin.com/in/piyush-badhe-dot-stack"
+        },
+        {
             label: "Follow up mail - test/assignment",
             value: "followup_test",
             message: "Subject: Follow-up on [position name] Submitted Assignment\n\nDear [Recruiter's Name],\n\nI hope you're doing well.\n\nI wanted to follow up regarding the [test/assignment name] I submitted on [submission date] as part of the [position name] application process. I am keen to know if there are any updates or feedback you could share.\n\nPlease let me know if you need anything further from my end. I remain enthusiastic about the opportunity and look forward to hearing from you.\n\nThank you for your time and consideration.\n\nBest regards,\nPiyush Badhe\n+91 8806613528\nhttps://www.linkedin.com/in/piyush-badhe-dot-stack"
@@ -61,6 +81,20 @@ class Data {
     ]
 
     private emailReplacementKeywords: ReplacementKeywordMap = {
+        career_mail_nodeJs: [
+            { label: "[Company Name]", value: "[Company Name]" }
+        ],
+        career_mail_fullStack: [
+            { label: "[Company Name]", value: "[Company Name]" }
+        ],
+        discuss_opportunity_nodeJs: [
+            { label: "[Company Name]", value: "[Company Name]" },
+            { label: "[Job Portal]", value: "[Job Portal]" },
+        ],
+        discuss_opportunity_fullStack: [
+            { label: "[Company Name]", value: "[Company Name]" },
+            { label: "[Job Portal]", value: "[Job Portal]" },
+        ],
         followup_test: [
             { label: "[position name]", value: "[position name]" },
             { label: "[Recruiter's Name]", value: "[Recruiter's Name]" },
